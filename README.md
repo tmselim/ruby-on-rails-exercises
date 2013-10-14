@@ -6,7 +6,7 @@ This set of exercises will lead you through building an app that allows a bicycl
 
 ### Fork the project
 
-Use the 'Fork' button on the upper left of the project's github page.
+Use the 'Fork' button on the upper right of the project's github page.
 
 ### Check out a local copy:
 
