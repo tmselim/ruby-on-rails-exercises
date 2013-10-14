@@ -1,11 +1,13 @@
 Bikeshop::Application.routes.draw do
-  resources :orders
+  resources :orders do
+    post 'mark_paid'
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  root 'homepage#show'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

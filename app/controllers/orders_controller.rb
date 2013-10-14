@@ -61,6 +61,13 @@ class OrdersController < ApplicationController
     end
   end
 
+  def mark_paid
+    order = Order.find(params[:order_id])
+    order.paid_for_on = Time.now
+    order.save
+    redirect_to orders_path, notice: 'Order marked as paid'
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_order

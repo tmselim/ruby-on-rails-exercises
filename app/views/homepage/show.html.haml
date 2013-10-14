@@ -1,0 +1,7 @@
+%h1 Welcome
+%p to the Bike Shop Order Tracker.
+%p
+  We currently have
+  = "#{pluralize(@unpaid_order_count, 'unpaid order')}."
+
+= link_to 'Orders', orders_path
