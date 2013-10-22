@@ -2,12 +2,36 @@
 
 This set of exercises will lead you through building an app that allows a bicycle shop's employees to track orders for fulfilling custom bicycle orders.
 
-## Exercise Set #2
+## Exercise Set 3
 
-1. If you try to load the root of the site, `http://localhost:3000/`, you just see the default Rails homepage. Replace that with a simple welcome screen, which we'll build upon later. Just have it say "Welcome to the Bike Shop Order Tracker" and link to the /orders page.
-1. As we add more sections to the site, we'll want site navigation to allow users to get around. Go ahead and change the site layout so that every page links to the new homepage, as well as to the /orders page.
-1. Time to make the homepage more useful. In addition to welcoming the user, alter the page so that it displays the number of orders that haven't been paid for yet.
-1. Employees are complaining about having to click onto an order's `edit` page to set the paid-on date, and at having to type in the date since it's usually the same date that they're updating the record on. To make their lives easier, add a `Mark Paid` link next to any unpaid orders on the `/orders` listing. When the employee clicks the link and confirms that the order has been paid, the record should be updated accordingly.
+### Add a field
+
+The bike shop has decided that they'd like to start keeping track of when they finish assembling a bike. This will allow them to do useful things like generate a list of bikes that have been completed but not paid for.
+
+First, we'll need to update the database by adding a column to store the new field. We'll do this by generating a migration. From the command line in your project:
+
+`$ rails g migration AddCompletedDate`
+
+That will create an empty migration in the `db/migrate` folder, with a name based on what you just entered in the generator. Open that file in your text editor and add the following line to create the column:
+
+`add_column :orders, :completed_on, :datetime`
+
+Now that we've written the instructions for creating the column, it's time to actually create it in the database. From the command line:
+
+`$ rake db:migrate`
+
+Now the field is defined in the database, but we have no way to read or write it through the web. First, let's add it to the order form, which you may recall is located in `app/views/orders/_form.html.haml`. You can copy the input for the paid_on date and update the copy to refer to the new column.
+
+Next, let's display the completion date when the order detail page is displayed. That's handled by the `show` template.
+
+Finally, let's show the completion date on the orders index, and sort the orders so that unfinished orders show up first.
+
+### Additional Challenges
+
+1. Since an order is always entered into the system before it's completed, it's not necessary to display the completion date when creating a new order. Can you modify the new and edit forms so that they share as much as possible, but have this difference?
+1. The shop manager is concerned that employees may enter future dates in the completion field, before an order is actually finished. She would like to prevent that, by requiring that the completion date always be equal to or earlier than today's date. Add a validation to enforce that rule.
+1. Add a count of unfinished orders on the homepage, so that it's clear how much work needs to be done.
+1. Similar to the 'mark paid' button from the last exercise set, employees would like to be able to just click a single link to mark an order completed, rather than editing the order and entering the current date.
 
 ## Development Setup
 
@@ -26,7 +50,7 @@ Use the 'Fork' button on the upper right of the project's github page.
 
 ## Previous Exercises
 
-### Exercise Set #1
+### Exercise Set 1
 
 ### Add a gem
 
@@ -80,3 +104,9 @@ The default UI for entering the date that the order was paid for doesn't allow t
 
 As the app stands now, it's possible to create orders that are missing vital information. Let's fix that -- make the customer name, customer email, description, and price required.
 
+### Exercise Set 2
+
+1. If you try to load the root of the site, `http://localhost:3000/`, you just see the default Rails homepage. Replace that with a simple welcome screen, which we'll build upon later. Just have it say "Welcome to the Bike Shop Order Tracker" and link to the /orders page.
+1. As we add more sections to the site, we'll want site navigation to allow users to get around. Go ahead and change the site layout so that every page links to the new homepage, as well as to the /orders page.
+1. Time to make the homepage more useful. In addition to welcoming the user, alter the page so that it displays the number of orders that haven't been paid for yet.
+1. Employees are complaining about having to click onto an order's `edit` page to set the paid-on date, and at having to type in the date since it's usually the same date that they're updating the record on. To make their lives easier, add a `Mark Paid` link next to any unpaid orders on the `/orders` listing. When the employee clicks the link and confirms that the order has been paid, the record should be updated accordingly.
