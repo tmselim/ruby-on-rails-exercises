@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131007021855) do
+ActiveRecord::Schema.define(version: 20131022024511) do
 
   create_table "orders", force: true do |t|
     t.string   "customer_name"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20131007021855) do
     t.datetime "paid_for_on"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "completed_on"
   end
 
 end

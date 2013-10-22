@@ -7,6 +7,7 @@
       %th Customer email
       %th Description
       %th Price
+      %th Completed on
       %th Paid for on
       %th
       %th
@@ -18,6 +19,7 @@
         %td= order.customer_email
         %td= order.description
         %td= order.price
+        %td= order.completed_on
         %td= order.paid_for_on
         %td.actions
           = link_to 'Show', order
