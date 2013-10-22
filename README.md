@@ -20,7 +20,13 @@ Now that we've written the instructions for creating the column, it's time to ac
 
 `$ rake db:migrate`
 
+### Allow the field to be saved to the database
+
 Now the field is defined in the database, but we have no way to read or write it through the web. First, let's add it to the order form, which you may recall is located in `app/views/orders/_form.html.haml`. You can copy the input for the paid_on date and update the copy to refer to the new column.
+
+At this point, we can submit a completion date to the server, but it won't be saved. Why not? Because it would be insecure for our controller to accept updates to any arbitrary field. (If you want to see the warning generated when we attempt to save an unauthorized field, submit your newly modified form and look for the "Unpermitted parameters" line in the server log.)
+
+To let Rails know that it's OK to accept updates to the completed_on field, open up the Orders controller in your editor, and add the field to the list in the `order_params` method.
 
 Next, let's display the completion date when the order detail page is displayed. That's handled by the `show` template.
 
