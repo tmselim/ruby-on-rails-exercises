@@ -1,28 +1,22 @@
-= form_for @order do |f|
-  - if @order.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@order.errors.count, "error")} prohibited this order from being saved:"
-      %ul
-        - @order.errors.full_messages.each do |msg|
-          %li= msg
+- if @order.errors.any?
+  #error_explanation
+    %h2= "#{pluralize(@order.errors.count, "error")} prohibited this order from being saved:"
+    %ul
+      - @order.errors.full_messages.each do |msg|
+        %li= msg
 
-  .field
-    = f.label :customer_name
-    = f.text_field :customer_name
-  .field
-    = f.label :customer_email
-    = f.text_field :customer_email
-  .field
-    = f.label :description
-    = f.text_area :description
-  .field
-    = f.label :price
-    = f.text_field :price
-  .field
-    = f.label :completed_on
-    = f.text_field :completed_on
-  .field
-    = f.label :paid_for_on
-    = f.text_field :paid_for_on
-  .actions
-    = f.submit 'Save'
+.field
+  = f.label :customer_name
+  = f.text_field :customer_name
+.field
+  = f.label :customer_email
+  = f.text_field :customer_email
+.field
+  = f.label :description
+  = f.text_area :description
+.field
+  = f.label :price
+  = f.text_field :price
+.field
+  = f.label :paid_for_on
+  = f.text_field :paid_for_on
