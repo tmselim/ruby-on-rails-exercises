@@ -20,13 +20,15 @@ Now that we've written the instructions for creating the column, it's time to ac
 
 `$ rake db:migrate`
 
+For more on migrations, see [the Migration guide](http://guides.rubyonrails.org/migrations.html).
+
 ### Allow the field to be saved to the database
 
 Now the field is defined in the database, but we have no way to read or write it through the web. First, let's add it to the order form, which you may recall is located in `app/views/orders/_form.html.haml`. You can copy the input for the paid_on date and update the copy to refer to the new column.
 
 At this point, we can submit a completion date to the server, but it won't be saved. Why not? Because it would be insecure for our controller to accept updates to any arbitrary field. (If you want to see the warning generated when we attempt to save an unauthorized field, submit your newly modified form and look for the "Unpermitted parameters" line in the server log.)
 
-To let Rails know that it's OK to accept updates to the completed_on field, open up the Orders controller in your editor, and add the field to the list in the `order_params` method.
+To let Rails know that it's OK to accept updates to the completed_on field, open up the Orders controller in your editor, and add the field to the list in the `order_params` method. For more on this topic, see [the ActionController guide](http://guides.rubyonrails.org/action_controller_overview.html#strong-parameters).
 
 Next, let's display the completion date when the order detail page is displayed. That's handled by the `show` template.
 
@@ -34,10 +36,10 @@ Finally, let's show the completion date on the orders index, and sort the orders
 
 ### Additional Challenges
 
-1. Since an order is always entered into the system before it's completed, it's not necessary to display the completion date when creating a new order. Can you modify the new and edit forms so that they share as much as possible, but have this difference?
-1. The shop manager is concerned that employees may enter future dates in the completion field, before an order is actually finished. She would like to prevent that, by requiring that the completion date always be equal to or earlier than today's date. Add a validation to enforce that rule.
-1. Add a count of unfinished orders on the homepage, so that it's clear how much work needs to be done.
-1. Similar to the 'mark paid' button from the last exercise set, employees would like to be able to just click a single link to mark an order completed, rather than editing the order and entering the current date.
+1. Since an order is always entered into the system before it's completed, it's not necessary to display the completion date when creating a new order. Can you modify the new and edit forms so that they share as much as possible, but have this difference? The ActionView guide [has a helpful section](http://guides.rubyonrails.org/layouts_and_rendering.html#using-partials).
+1. The shop manager is concerned that employees may enter future dates in the completion field, before an order is actually finished. She would like to prevent that, by requiring that the completion date always be equal to or earlier than today's date. Add a validation to enforce that rule. By now you should have a good idea where to look for a reference on the available options.
+1. Add a count of unfinished orders on the homepage, so that it's clear how much work needs to be done. We did a similar exercise last time -- if you completed that exercise and your solution included a scope on the model, try using a class method this time, and vice versa.
+1. Employees would like to be able to just click a single link to mark an order completed, rather than editing the order and entering the current date. Note that this task is similar to the 'mark paid' button from the last exercise set.
 
 ## Development Setup
 
