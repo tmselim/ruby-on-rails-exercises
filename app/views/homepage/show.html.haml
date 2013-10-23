@@ -2,6 +2,8 @@
 %p to the Bike Shop Order Tracker.
 %p
   We currently have
-  = "#{pluralize(@unpaid_order_count, 'unpaid order')}."
+  = @unpaid_order_count
+  unpaid and
+  = "#{pluralize(@unfinished_order_count, 'unfinished order')}."
 
 = link_to 'Orders', orders_path
