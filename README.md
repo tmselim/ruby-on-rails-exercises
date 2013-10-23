@@ -8,6 +8,15 @@ This set of exercises will lead you through building an app that allows a bicycl
 
 Use the 'Fork' button on the upper right of the project's github page.
 
+Later on, to update your fork, you'll need to do two things:
+
+    $ git remote add upstream git@github.com:gosmartfactory/ruby-on-rails-exercises.git
+    $ git fetch upstream
+
+Only the second command will be required for future updates. Now, if you want to see what new branches are available to check out and merge from,
+
+    $ git branch -r 
+
 ### Check out a local copy:
 
     $ git clone git@github.com:<your_github_username>/ruby-on-rails-exercises.git
