@@ -1,6 +1,7 @@
 Bikeshop::Application.routes.draw do
   resources :orders do
     post 'mark_paid'
+    post 'mark_completed'
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

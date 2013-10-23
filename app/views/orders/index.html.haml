@@ -24,9 +24,11 @@
         %td.actions
           = link_to 'Show', order
           = link_to 'Edit', edit_order_path(order)
-          = link_to 'Destroy', order, :method => :delete, :data => { :confirm => 'Are you sure?' }
+          = link_to 'Destroy', order, method: :delete, data: { :confirm => 'Are you sure?' }
           - if order.paid_for_on.blank?
-            = link_to 'Mark Paid', order_mark_paid_path(order), :method => :post, :data => { :confirm => 'Are you sure?' }
+            = link_to 'Mark Paid', order_mark_paid_path(order), method: :post, data: { :confirm => 'Are you sure?' }
+          - if order.completed_on.blank?
+            = link_to 'Mark Completed', order_mark_completed_path(order), method: :post, data: { :confirm => 'Are you sure?' }
 
   %br
 

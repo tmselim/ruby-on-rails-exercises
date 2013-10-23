@@ -68,6 +68,14 @@ class OrdersController < ApplicationController
     redirect_to orders_path, notice: 'Order marked as paid'
   end
 
+  def mark_completed
+    order = Order.find(params[:order_id])
+    order.completed_on = Time.now
+    order.save
+    redirect_to orders_path, notice: 'Order marked as completed'
+  end
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_order
