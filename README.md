@@ -74,9 +74,11 @@ They're pretty hard to read in the listing, aren't they? We've put some simple C
 
 (No worries if you aren't familiar with CSS! Just ask and we'll give you a few hints about what you need to do.)
 
-### Add validation rules
+### Allow blank 'paid' dates to be entered
 
 The default UI for entering the date that the order was paid for doesn't allow the field to be left blank, which is necessary in case the customer hasn't paid yet. Change it to a text input, so that it can be left blank until the order is paid for.
+
+### Add validation rules
 
 As the app stands now, it's possible to create orders that are missing vital information. Let's fix that -- make the customer name, customer email, description, and price required.
 
