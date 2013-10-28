@@ -19,7 +19,16 @@ ActiveRecord::Schema.define(version: 20131023212105) do
     t.datetime "updated_at"
   end
 
-# Could not dump table "orders" because of following NoMethodError
-#   undefined method `[]' for nil:NilClass
+  create_table "orders", force: true do |t|
+    t.string   "customer_name"
+    t.string   "customer_email"
+    t.text     "description"
+    t.string   "price"
+    t.datetime "paid_for_on"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "completed_on"
+    t.integer  "brand_id"
+  end
 
 end
