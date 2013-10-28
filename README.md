@@ -2,77 +2,65 @@
 
 This set of exercises will lead you through building an app that allows a bicycle shop's employees to track orders for fulfilling custom bicycle orders.
 
-## Exercise Set 4
+## Exercise Set 5
 
-Instead of using only a free-form description field, the bicycle shop wants to systematically track the brand of bicycle for each order. We'll add a new model for bicycle brands, then create an association between brands and orders.
+Employees have pointed out that knowing the specific frame to be used when assembling a bike is more helpful than just knowing what company made the frame. We'll still keep track of the brand, since we need to be able to easily get a list of frames by brand when assessing if need parts.
 
-### Create the Brand model
+### Generate a scaffold for frame
 
-Use Rails scaffolding to create a new brand model. For now, all brands need is a "name" attribute.
+Frames are pretty simple: they have a name, and they know what Brand they belong to. Look back to previous exercises if you need a reminder about generating scaffolds.
 
-Hint: if you don't remember how to generate a scaffold, you can always get help at the command line:
+### Add frames to the navigation
 
-    rails g scaffold
+This is much the same as the task we did in Exercise Set 4, for Brands, and earlier for Orders.
 
-Look over the files the scaffold generated. Familiarize yourself with what just got added to your project.
+### Change the associations
 
-The scaffold generates a new controller and new views for managing brands, but there are no links to it in your UI. Add a link to brands in the page header.
+Now we have a way to record Frames, but we're still working with Brands when creating Orders. The first thing to do to fix that is to update the associations between Orders, Brands and Frames. 
 
-Create a few brands to make sure things are working.
+Right now, our Order model has this association: `belongs_to :brand`. Brand has the reciprocal association `has_many :orders`. We're going to remove both of those, because we want Orders directly connected to Frames, not Brands. Once we have that association, we'll be able to indirectly connect Orders and Brands.
 
-### Create the order-brand association
+First, let's update the database so that the tables have the proper references. Generate a new migration with the following changes:
 
-We want to make it so that each order has a brand, and each brand has many orders.
+    remove_column :orders, :brand_id, :int
+    add_reference :orders, :frame
 
-To the order model (in `order.rb`), add:
+Now, after running migrations, we can update the associations.
 
-    belongs_to :brand
+ * Order now `belongs_to :frame`
+ * Brand now `has_many :frames`
+ * Frame now `belongs_to :brand` and `has_many :orders`
 
-...and in the brand model (`brand.rb`), add:
+You can test that the new associations work using the rails console, `rails c`.
 
-    has_many :orders
+### Update the views and controllers
 
-Now you have an association, but something is missing! Try it out using the Rails console:
+OK, we've updated our models — but our views and and controllers are now broken.
 
-    $ rails c
-    Loading development environment (Rails 4.0.0)
-    2.0.0p247 :001 > Order.first.brand
+Look through the order views, and make sure they all know that order now has a frame instead of a brand. Make `views/orders/show.html.haml` display both the brand _and_ the frame.
 
-You'll get an error message. What's wrong? You added an assocation to your code, but not yet in the database. The orders table needs a brand_id column to make things work. (However, the brands table should not have an order_id column. Why not?)
+Make sure you've showing a drop-down list of frames instead of brands in `views/orders/_form.html.haml`. You'll also need to change the Order validation of brand_id to frame_id, and update the Order controller's order_params method to permit :frame_id rather than :brand_id.
 
-Generate a new AddBrandToOrder migration with the following line:
+Any other views need updating?
 
-    add_column :orders, :brand_id, :reference
+### Now the fun part
+
+We would like to show all orders for a given brand. The relationship is indirect: brands have many frames, and each frame has many orders. However, we can ask Rails to roll that chain into a single relation and give it a name. To the Brand model, add:
+
+    has_many :orders, through: :frames
     
-The "reference" type just becomes an integer in the database, but declaring it as a reference lets Rails know our true intention.
+Now you can ask a brand for all of its orders:
 
-Now the rails console experiment above should work.
+    brand = Brand.find(some_id)
+    brand.orders
 
-[More info about Rails Associations](http://guides.rubyonrails.org/association_basics.html)
+Use this to add a list of all orders for a given brand to `views/brands/show.html.haml`. Hint: look at one of the index views to see how to list the elements of a collection.
 
-### Update the order form
+Once you have that working, change it so it only shows the paid but uncompleted orders for the brand. Hint: you can chain associations with named scopes.
 
-Order can now have brands, but there's no way to select one in the UI.
+See [the Association Guide](http://guides.rubyonrails.org/association_basics.html) for background and more detail on ActiveModel associations.
 
-Edit the order form (`app/views/orders/_form.html.haml`) to add a new text field for brand. How does that work? Answer: badly. (But do try it and see what happens.)
-
-What we really want is a select box, not a free-form text field. Read about the Rails [collection_select](http://api.rubyonrails.org/classes/ActionView/Helpers/FormOptionsHelper.html#method-i-collection_select) helper, and use that to create a select box with the names of the various available brands.
-
-You'll need to update the controller so the brand actually gets saved. Hint: look at exercise 3.
-
-### Update the order index
-
-Add a column to the orders index and show pages so that you can see the brand of each order.
-
-Some previously created orders may not have brands. Make sure that doesn't blow things up!
-
-### Challenges
-
-* Make the brand a required field for orders. Should you require `brand` or `brand_id` on orders? Google around and read the debate!
-* Some brands may go out of business and stop accepting orders. Add a boolean `active` flag to the brand model, then change the UI so it only shows active brands when editing an order.
-* Oops! That's not quite good enough: an existing order may use an inactive brand — but we want to preserve that. Change the UI so it shows only active brands for new orders, but _all_ brands for existing orders.
-
----
+----
 
 ## Development Setup
 
@@ -190,3 +178,76 @@ Finally, let's show the completion date on the orders index, and sort the orders
 1. The shop manager is concerned that employees may enter future dates in the completion field, before an order is actually finished. She would like to prevent that, by requiring that the completion date always be equal to or earlier than today's date. Add a validation to enforce that rule. By now you should have a good idea where to look for a reference on the available options.
 1. Add a count of unfinished orders on the homepage, so that it's clear how much work needs to be done. We did a similar exercise last time -- if you completed that exercise and your solution included a scope on the model, try using a class method this time, and vice versa.
 1. Employees would like to be able to just click a single link to mark an order completed, rather than editing the order and entering the current date. Note that this task is similar to the 'mark paid' button from the last exercise set.
+
+## Exercise Set 4
+
+Instead of using only a free-form description field, the bicycle shop wants to systematically track the brand of bicycle for each order. We'll add a new model for bicycle brands, then create an association between brands and orders.
+
+### Create the Brand model
+
+Use Rails scaffolding to create a new brand model. For now, all brands need is a "name" attribute.
+
+Hint: if you don't remember how to generate a scaffold, you can always get help at the command line:
+
+    rails g scaffold
+
+Look over the files the scaffold generated. Familiarize yourself with what just got added to your project.
+
+The scaffold generates a new controller and new views for managing brands, but there are no links to it in your UI. Add a link to brands in the page header.
+
+Create a few brands to make sure things are working.
+
+### Create the order-brand association
+
+We want to make it so that each order has a brand, and each brand has many orders.
+
+To the order model (in `order.rb`), add:
+
+    belongs_to :brand
+
+...and in the brand model (`brand.rb`), add:
+
+    has_many :orders
+
+Now you have an association, but something is missing! Try it out using the Rails console:
+
+    $ rails c
+    Loading development environment (Rails 4.0.0)
+    2.0.0p247 :001 > Order.first.brand
+
+You'll get an error message. What's wrong? You added an assocation to your code, but not yet in the database. The orders table needs a brand_id column to make things work. (However, the brands table should not have an order_id column. Why not?)
+
+Generate a new AddBrandToOrder migration with the following line:
+
+    add_column :orders, :brand_id, :reference
+    
+The "reference" type just becomes an integer in the database, but declaring it as a reference lets Rails know our true intention.
+
+Now the rails console experiment above should work.
+
+[More info about Rails Associations](http://guides.rubyonrails.org/association_basics.html)
+
+### Update the order form
+
+Order can now have brands, but there's no way to select one in the UI.
+
+Edit the order form (`app/views/orders/_form.html.haml`) to add a new text field for brand. How does that work? Answer: badly. (But do try it and see what happens.)
+
+What we really want is a select box, not a free-form text field. Read about the Rails [collection_select](http://api.rubyonrails.org/classes/ActionView/Helpers/FormOptionsHelper.html#method-i-collection_select) helper, and use that to create a select box with the names of the various available brands.
+
+You'll need to update the controller so the brand actually gets saved. Hint: look at exercise 3.
+
+### Update the order index
+
+Add a column to the orders index and show pages so that you can see the brand of each order.
+
+Some previously created orders may not have brands. Make sure that doesn't blow things up!
+
+### Challenges
+
+* Make the brand a required field for orders. Should you require `brand` or `brand_id` on orders? Google around and read the debate!
+* Some brands may go out of business and stop accepting orders. Add a boolean `active` flag to the brand model, then change the UI so it only shows active brands when editing an order.
+* Oops! That's not quite good enough: an existing order may use an inactive brand — but we want to preserve that. Change the UI so it shows only active brands for new orders, but _all_ brands for existing orders.
+
+---
+
