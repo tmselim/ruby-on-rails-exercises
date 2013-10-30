@@ -5,7 +5,7 @@
     %tr
       %th Customer name
       %th Customer email
-      %th Brand
+      %th Frame
       %th Description
       %th Price
       %th Completed on
@@ -18,7 +18,7 @@
       %tr
         %td= order.customer_name
         %td= order.customer_email
-        %td= order.brand.name if order.brand
+        %td= order.frame.name if order.frame
         %td= order.description
         %td= order.price
         %td= order.completed_on

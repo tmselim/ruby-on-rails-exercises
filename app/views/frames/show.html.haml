@@ -5,7 +5,7 @@
   = @frame.name
 %p
   %b Brand:
-  = @frame.brand
+  = @frame.brand.name if @frame.brand
 
 = link_to 'Edit', edit_frame_path(@frame)
 \|
