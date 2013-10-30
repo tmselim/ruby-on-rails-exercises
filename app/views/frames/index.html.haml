@@ -1,0 +1,21 @@
+%h1 Listing frames
+
+%table
+  %tr
+    %th Name
+    %th Brand
+    %th
+    %th
+    %th
+
+  - @frames.each do |frame|
+    %tr
+      %td= frame.name
+      %td= frame.brand
+      %td= link_to 'Show', frame
+      %td= link_to 'Edit', edit_frame_path(frame)
+      %td= link_to 'Destroy', frame, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Frame', new_frame_path

@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @frame.name
+%p
+  %b Brand:
+  = @frame.brand
+
+= link_to 'Edit', edit_frame_path(@frame)
+\|
+= link_to 'Back', frames_path
