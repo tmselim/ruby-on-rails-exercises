@@ -8,7 +8,9 @@
   = @order.customer_email
 %p
   %b Frame
-  = @order.frame.name if @order.frame
+  - if @order.frame
+    = @order.frame.brand.name
+    = @order.frame.name
 %p
   %b Description:
   = @order.description
