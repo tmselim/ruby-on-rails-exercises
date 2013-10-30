@@ -4,6 +4,16 @@
   %b Name:
   = @brand.name
 
+%h2 Related orders
+
+%ul
+  - @brand.orders.each do |order|
+    %li
+      = link_to order.customer_name, order
+      = order.frame.name
+      on
+      = order.created_at
+
 = link_to 'Edit', edit_brand_path(@brand)
 \|
 = link_to 'Back', brands_path
