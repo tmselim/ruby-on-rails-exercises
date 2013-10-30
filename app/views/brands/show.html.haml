@@ -4,10 +4,10 @@
   %b Name:
   = @brand.name
 
-%h2 Related orders
+%h2 Related orders ready for fulfillment
 
 %ul
-  - @brand.orders.each do |order|
+  - @brand.orders.paid.unfinished.each do |order|
     %li
       = link_to order.customer_name, order
       = order.frame.name
