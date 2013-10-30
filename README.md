@@ -22,7 +22,7 @@ Right now, our Order model has this association: `belongs_to :brand`. Brand has 
 
 First, let's update the database so that the tables have the proper references. Generate a new migration with the following changes:
 
-    remove_column :orders, :brand_id, :int
+    remove_reference :orders, :brand
     add_reference :orders, :frame
 
 Now, after running migrations, we can update the associations.
