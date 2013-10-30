@@ -7,6 +7,9 @@
   %b Customer email:
   = @order.customer_email
 %p
+  %b Brand
+  = @order.brand.name if @order.brand
+%p
   %b Description:
   = @order.description
 %p

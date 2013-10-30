@@ -12,6 +12,9 @@
   = f.label :customer_email
   = f.text_field :customer_email
 .field
+  = f.label :brand
+  = collection_select :order, :brand_id, Brand.all, :id, :name
+.field
   = f.label :description
   = f.text_area :description
 .field

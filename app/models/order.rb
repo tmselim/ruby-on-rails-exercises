@@ -1,8 +1,10 @@
 class Order < ActiveRecord::Base
-  validates :customer_name, :customer_email, :description, :price, presence: true
+  validates :customer_name, :customer_email, :description, :price, :brand_id, presence: true
   validate :completion_date_must_be_in_past
 
   scope :unpaid, -> { where("paid_for_on is null") }
+  
+  belongs_to :brand
 
   #
   # Last time around, we implemented 'unpaid' as a scope. It could also

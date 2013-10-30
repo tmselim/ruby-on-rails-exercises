@@ -1,4 +1,6 @@
 Bikeshop::Application.routes.draw do
+  resources :brands
+
   resources :orders do
     post 'mark_paid'
     post 'mark_completed'
