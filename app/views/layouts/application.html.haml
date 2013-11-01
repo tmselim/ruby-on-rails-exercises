@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 %html
-%head
-  %title Bikeshop
-  = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
-  = javascript_include_tag "application", "data-turbolinks-track" => true
-  = csrf_meta_tags
-%body
-  %header
-    = link_to 'Home', root_path
-    |
-    = link_to 'Orders', orders_path
-    |
-    = link_to 'Brands', brands_path
-    |
-    = link_to 'Frames', frames_path
-  = yield
+  %head
+    %title Bikeshop
+    = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
+    = javascript_include_tag "application", "data-turbolinks-track" => true
+    = csrf_meta_tags
+  %body
+    %header
+      = link_to 'Home', root_path
+      |
+      = link_to 'Orders', orders_path
+      |
+      = link_to 'Brands', brands_path
+      |
+      = link_to 'Frames', frames_path
+    = yield
