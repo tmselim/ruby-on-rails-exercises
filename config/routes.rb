@@ -1,5 +1,7 @@
 Bikeshop::Application.routes.draw do
-  resources :brands
+  resources :brands do
+    get 'frames'
+  end
 
   resources :frames
 
