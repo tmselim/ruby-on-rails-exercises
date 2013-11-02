@@ -62,7 +62,7 @@ class BrandsController < ApplicationController
   end
 
   def frames
-    @frames = Brand.find(params[:brand_id]).frames
+    @frames = Brand.find(params[:brand_id]).frames.order(:name)
     render '/frames/index'
   end
 
