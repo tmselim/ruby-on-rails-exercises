@@ -1,21 +1,20 @@
-%h1 Listing frames
+%h1 Frames
 
 %table
   %tr
     %th Name
     %th Brand
-    %th
-    %th
-    %th
+    %th.actions
 
   - @frames.each do |frame|
     %tr
       %td= frame.name
       %td= frame.brand.name if frame.brand
-      %td= link_to 'Show', frame
-      %td= link_to 'Edit', edit_frame_path(frame)
-      %td= link_to 'Destroy', frame, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      %td.actions
+        = link_to 'Show', frame, :class => 'button-small show'
+        = link_to 'Edit', edit_frame_path(frame), :class => 'button-small edit'
+        = link_to 'Destroy', frame, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'button-small delete'
 
 %br
 
-= link_to 'New Frame', new_frame_path
+= link_to 'New Frame', new_frame_path, :class => 'button'
