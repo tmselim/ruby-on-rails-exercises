@@ -64,45 +64,45 @@ input[type="submit"] {
   background-color: #ccc;
 }
 
-header a.new-order {
-  vertical-align: top;
-  background: #187db1 url(../assets/sprite.png) no-repeat 83px 12px;
-  padding-right: 35px;
-  color: #fff;
-}
-header a.new-order:hover {
-  color: #fff;
-  background: #0B4D70 url(../assets/sprite.png) no-repeat 83px 12px;
-}
 header {
   position: absolute;
   top: 20px;
   right: 10px;
+  a.new-order {
+    vertical-align: top;
+    background: #187db1 url(../assets/sprite.png) no-repeat 83px 12px;
+    padding-right: 35px;
+    color: #fff;
+  }
+  a.new-order:hover {
+    color: #fff;
+    background: #0B4D70 url(../assets/sprite.png) no-repeat 83px 12px;
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    display: inline;
+  }
+  ul li {
+    display: inline;
+  }
+  a {
+    display: inline-block;
+    background: #ddd;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-family: "Helvetica Neue";
+    transition: all 0.1s ease !important;
+  }
+  a:hover {
+    background: #ccc;
+    color: #666;
+  }
 }
 
-header ul {
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
-  display: inline;
-}
-header ul li {
-  display: inline;
-}
-header a {
-  display: inline-block;
-  background: #ddd;
-  text-decoration: none;
-  padding: 10px 15px;
-  border-radius: 4px;
-  font-weight: bold;
-  font-family: "Helvetica Neue";
-  transition: all 0.1s ease !important;
-}
-header a:hover {
-  background: #ccc;
-  color: #666;
-}
 /* Tables */
 
 table {
@@ -142,19 +142,21 @@ td.actions {
   padding-right: 10px !important;
 }
 
-.customer p {
-  font-weight: bold;
-  padding-top: 17px;
-}
-.customer a {
-  text-decoration: none;
-  color: #bbb;
-  font-size: 12px;
-  transition: all 0.1s ease;
-}
-.customer a:hover {
-  background: none;
-  color: #999;
+.customer {
+  p {
+    font-weight: bold;
+    padding-top: 17px;
+  }
+  a {
+    text-decoration: none;
+    color: #bbb;
+    font-size: 12px;
+    transition: all 0.1s ease;
+  }
+  a:hover {
+    background: none;
+    color: #999;
+  }
 }
 .button-small {
   transition: all 0.1s ease;
@@ -166,10 +168,10 @@ td.actions {
   overflow: hidden;
   border-radius: 4px;
   background: url(../assets/sprite.png) no-repeat 8px -21px #ddd;
-}
-.button-small:hover {
-  color: #666;
-  background-color: #ccc;
+  &:hover {
+    color: #666;
+    background-color: #ccc;
+  }
 }
 .edit   { background-position: 8px -53px; }
 .delete { background-position: 8px -89px; }
@@ -202,11 +204,10 @@ textarea {
      -moz-transition: all 0.1s ease;
     -ms-transition: all 0.1s ease;
       transition: all 0.1s ease;
-}
-input[type="text"]:focus,
-textarea:focus {
-  outline: none;
-  border-color: #aaa;
+  &:focus {
+    outline: none;
+    border-color: #aaa;
+  }
 }
 select {
   width: 212px;
