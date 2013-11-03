@@ -285,6 +285,7 @@ This is much the same as the task we did in Exercise Set 4, for Brands, and earl
 Now we have a way to record Frames, but we're still working with Brands when creating Orders. The first thing to do to fix that is to update the associations between Orders, Brands and Frames. 
 
 Right now, our Order model has this association: `belongs_to :brand`. Brand has the reciprocal association `has_many :orders`. We're going to remove both of those, because we want Orders directly connected to Frames, not Brands. Once we have that association, we'll be able to indirectly connect Orders and Brands.
+<<<<<<< HEAD
 
 First, let's update the database so that the tables have the proper references. Generate a new migration with the following changes:
 
@@ -313,6 +314,36 @@ Any other views need updating?
 
 We would like to show all orders for a given brand. The relationship is indirect: brands have many frames, and each frame has many orders. However, we can ask Rails to roll that chain into a single relation and give it a name. To the Brand model, add:
 
+=======
+
+First, let's update the database so that the tables have the proper references. Generate a new migration with the following changes:
+
+    remove_reference :orders, :brand
+    add_reference :orders, :frame
+
+Now, after running migrations, we can update the associations.
+
+ * Order now `belongs_to :frame`
+ * Brand now `has_many :frames`
+ * Frame now `belongs_to :brand` and `has_many :orders`
+
+You can test that the new associations work using the rails console, `rails c`.
+
+### Update the views and controllers
+
+OK, we've updated our models — but our views and and controllers are now broken.
+
+Look through the order views, and make sure they all know that order now has a frame instead of a brand. Make `views/orders/show.html.haml` display both the brand _and_ the frame.
+
+Make sure you've showing a drop-down list of frames instead of brands in `views/orders/_form.html.haml`. You'll also need to change the Order validation of brand_id to frame_id, and update the Order controller's order_params method to permit :frame_id rather than :brand_id.
+
+Any other views need updating?
+
+### Now the fun part
+
+We would like to show all orders for a given brand. The relationship is indirect: brands have many frames, and each frame has many orders. However, we can ask Rails to roll that chain into a single relation and give it a name. To the Brand model, add:
+
+>>>>>>> Exercise 7 instructions
     has_many :orders, through: :frames
 
 Now you can ask a brand for all of its orders:
@@ -326,6 +357,7 @@ Once you have that working, change it so it only shows the paid but uncompleted 
 
 See [the Association Guide](http://guides.rubyonrails.org/association_basics.html) for background and more detail on ActiveModel associations.
 
+<<<<<<< HEAD
 ## Exercise Set 6
 
 Our scaffolding generated some tests. I’ve updated them to work with the new fields we added, and also switched them from using Rails fixtures over to Factory Girl.
@@ -350,4 +382,6 @@ We’d like to make brands require a name — but don’t do it yet! We’re go
 * Change your code to implement the new behavior.
 * Run your tests again. They should pass!
 
+=======
+>>>>>>> Exercise 7 instructions
 ---
