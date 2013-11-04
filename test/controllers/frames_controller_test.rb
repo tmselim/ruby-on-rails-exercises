@@ -2,7 +2,7 @@ require 'test_helper'
 
 class FramesControllerTest < ActionController::TestCase
   setup do
-    @frame = frames(:one)
+    @frame = FactoryGirl.create(:frame)
   end
 
   test "should get index" do

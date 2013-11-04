@@ -2,7 +2,7 @@ require 'test_helper'
 
 class OrdersControllerTest < ActionController::TestCase
   setup do
-    @order = orders(:one)
+    @order = FactoryGirl.create(:order)
   end
 
   test "should get index" do
@@ -18,7 +18,12 @@ class OrdersControllerTest < ActionController::TestCase
 
   test "should create order" do
     assert_difference('Order.count') do
-      post :create, order: { customer_email: @order.customer_email, customer_name: @order.customer_name, description: @order.description, paid_for_on: @order.paid_for_on, price: @order.price }
+      post :create, order: {
+        customer_email: @order.customer_email,
+        customer_name: @order.customer_name,
+        description: @order.description,
+        price: @order.price
+      }
     end
 
     assert_redirected_to order_path(assigns(:order))
