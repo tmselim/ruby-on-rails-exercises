@@ -2,63 +2,29 @@
 
 This set of exercises will lead you through building an app that allows a bicycle shop's employees to track orders for fulfilling custom bicycle orders.
 
-## Exercise Set 5
+## Exercise Set 6
 
-Employees have pointed out that knowing the specific frame to be used when assembling a bike is more helpful than just knowing what company made the frame. We'll still keep track of the brand, since we need to be able to easily get a list of frames by brand when assessing if need parts.
+Our scaffolding generated some tests. I’ve updated them to work with the new fields we added, and also switched them from using Rails fixtures over to Factory Girl.
 
-### Generate a scaffold for frame
+### Add some model tests
 
-Frames are pretty simple: they have a name, and they know what Brand they belong to. Look back to previous exercises if you need a reminder about generating scaffolds.
+Add tests to verify that some of the existing features of the models work. Refer to `test/models/brand_test.rb` for reference.
 
-### Add frames to the navigation
+To run your tests, use:
 
-This is much the same as the task we did in Exercise Set 4, for Brands, and earlier for Orders.
+    bundle exec rake test
 
-### Change the associations
+You may find the [http://guides.rubyonrails.org/testing.html](Rails testing) and [https://github.com/thoughtbot/factory_girl/blob/master/GETTING_STARTED.md](Factory Girl) guides useful.
 
-Now we have a way to record Frames, but we're still working with Brands when creating Orders. The first thing to do to fix that is to update the associations between Orders, Brands and Frames. 
+### Add a test for a new feature
 
-Right now, our Order model has this association: `belongs_to :brand`. Brand has the reciprocal association `has_many :orders`. We're going to remove both of those, because we want Orders directly connected to Frames, not Brands. Once we have that association, we'll be able to indirectly connect Orders and Brands.
+We’d like to make brands require a name — but don’t do it yet! We’re going to implement it using _test first programming._
 
-First, let's update the database so that the tables have the proper references. Generate a new migration with the following changes:
-
-    remove_reference :orders, :brand
-    add_reference :orders, :frame
-
-Now, after running migrations, we can update the associations.
-
- * Order now `belongs_to :frame`
- * Brand now `has_many :frames`
- * Frame now `belongs_to :brand` and `has_many :orders`
-
-You can test that the new associations work using the rails console, `rails c`.
-
-### Update the views and controllers
-
-OK, we've updated our models — but our views and and controllers are now broken.
-
-Look through the order views, and make sure they all know that order now has a frame instead of a brand. Make `views/orders/show.html.haml` display both the brand _and_ the frame.
-
-Make sure you've showing a drop-down list of frames instead of brands in `views/orders/_form.html.haml`. You'll also need to change the Order validation of brand_id to frame_id, and update the Order controller's order_params method to permit :frame_id rather than :brand_id.
-
-Any other views need updating?
-
-### Now the fun part
-
-We would like to show all orders for a given brand. The relationship is indirect: brands have many frames, and each frame has many orders. However, we can ask Rails to roll that chain into a single relation and give it a name. To the Brand model, add:
-
-    has_many :orders, through: :frames
-    
-Now you can ask a brand for all of its orders:
-
-    brand = Brand.find(some_id)
-    brand.orders
-
-Use this to add a list of all orders for a given brand to `views/brands/show.html.haml`. Hint: look at one of the index views to see how to list the elements of a collection.
-
-Once you have that working, change it so it only shows the paid but uncompleted orders for the brand. Hint: you can chain associations with named scopes.
-
-See [the Association Guide](http://guides.rubyonrails.org/association_basics.html) for background and more detail on ActiveModel associations.
+* Run your tests and make sure they’re all passing.
+* Write a test that asserts that name is a required field on brand. It isn’t (yet), so this test should fail!
+* Run your tests to make sure that your new test fails as expected.
+* Change your code to implement the new behavior.
+* Run your tests again. They should pass!
 
 ----
 
