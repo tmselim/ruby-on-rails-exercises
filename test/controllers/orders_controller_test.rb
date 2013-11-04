@@ -22,7 +22,8 @@ class OrdersControllerTest < ActionController::TestCase
         customer_email: @order.customer_email,
         customer_name: @order.customer_name,
         description: @order.description,
-        price: @order.price
+        price: @order.price,
+        frame_id: FactoryGirl.create(:frame).id
       }
     end
 
