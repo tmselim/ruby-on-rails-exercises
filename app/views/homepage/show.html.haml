@@ -1,0 +1,5 @@
+.home-content
+  %h1 Welcome to the Bike Shop Order Tracker
+  %p #{pluralize(@unpaid_order_count, 'unpaid order', 'unpaid orders')}, #{pluralize(@unfinished_order_count, 'incomplete order', 'incomplete orders')}
+  %p 
+  = link_to "View Orders", orders_path, :class => "button"

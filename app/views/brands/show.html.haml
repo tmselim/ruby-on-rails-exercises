@@ -1,0 +1,17 @@
+%h1= @brand.name
+
+%p#notice= notice
+
+%h2 Related orders ready for fulfillment
+
+%ul
+  - @brand.orders.paid.unfinished.each do |order|
+    %li
+      = link_to order.customer_name, order
+      = order.frame.name
+      on
+      = order.created_at
+
+= link_to 'Edit', edit_brand_path(@brand)
+\|
+= link_to 'Back', brands_path

@@ -37,6 +37,15 @@ GEM
     coffee-script-source (1.6.3)
     erubis (2.7.0)
     execjs (2.0.2)
+    factory_girl (4.3.0)
+      activesupport (>= 3.0.0)
+    haml (4.0.3)
+      tilt
+    haml-rails (0.4)
+      actionpack (>= 3.1, < 4.1)
+      activesupport (>= 3.1, < 4.1)
+      haml (>= 3.1, < 4.1)
+      railties (>= 3.1, < 4.1)
     hike (1.2.3)
     i18n (0.6.5)
     jbuilder (1.5.1)
@@ -109,6 +118,8 @@ PLATFORMS
 
 DEPENDENCIES
   coffee-rails (~> 4.0.0)
+  factory_girl
+  haml-rails
   jbuilder (~> 1.2)
   jquery-rails
   rails (= 4.0.0)

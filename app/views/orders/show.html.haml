@@ -1,0 +1,29 @@
+%p#notice= notice
+
+%p
+  %b Customer name:
+  = @order.customer_name
+%p
+  %b Customer email:
+  = @order.customer_email
+%p
+  %b Frame
+  - if @order.frame
+    = @order.frame.brand.name
+    = @order.frame.name
+%p
+  %b Description:
+  = @order.description
+%p
+  %b Price:
+  = @order.price
+%p
+  %b Completed on:
+  = @order.completed_on
+%p
+  %b Paid for on:
+  = @order.paid_for_on
+
+= link_to 'Edit', edit_order_path(@order)
+\|
+= link_to 'Back', orders_path

@@ -1,0 +1,217 @@
+/*
+* This is a manifest file that'll be compiled into application.css, which will include all the files
+* listed below.
+*
+* Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+* or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+*
+* You're free to add application-wide styles to this file and they'll appear at the top of the
+* compiled file, but it's generally better to create a new file per style scope.
+*
+*= require_self
+*= require_tree .
+*/
+
+
+body {
+  padding: 10px;
+  font-family: "Helvetica Neue", sans-serif;
+}
+h1, p, ol, ul, td {
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+th {
+  background: #f1f1f1;
+  text-align: left;
+  font-size: 10px;
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+  text-transform: uppercase;
+  padding: 0.2em 0.6em;
+}
+td {
+  padding: 0.2em 0.6em;
+}
+.wrapper {
+  width: 90%;
+  margin: 0 auto;
+  position: relative;
+  padding-top: 10px;
+}
+
+.home-content {
+  text-align: center;
+  margin-top: 250px;  
+}
+
+.button, 
+input[type="submit"] {
+  font-size: 12px;
+  display: inline-block;
+  padding: 10px 15px;
+  color: #666;
+  background: #ddd;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius:4px;
+  border: none;
+  font-family: "Helvetica Neue";
+  cursor: pointer;
+  -webkit-font-smoothing: antialiased;
+  transition: all 0.1s ease !important;
+}
+.button:hover {
+  color: #666;
+  background-color: #ccc;
+}
+
+header {
+  position: absolute;
+  top: 20px;
+  right: 10px;
+  a.new-order {
+    vertical-align: top;
+    background: #187db1 url(../assets/sprite.png) no-repeat 83px 12px;
+    padding-right: 35px;
+    color: #fff;
+  }
+  a.new-order:hover {
+    color: #fff;
+    background: #0B4D70 url(../assets/sprite.png) no-repeat 83px 12px;
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    display: inline;
+  }
+  ul li {
+    display: inline;
+  }
+  a {
+    display: inline-block;
+    background: #ddd;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-family: "Helvetica Neue";
+    transition: all 0.1s ease !important;
+  }
+  a:hover {
+    background: #ccc;
+    color: #666;
+  }
+}
+
+/* Tables */
+
+table {
+  margin-top: 20px;
+  width: 100%;
+  border-collapse: collapse;
+}
+th {
+  border-bottom: 1px solid #ddd;
+}
+td {
+  border-bottom: 1px solid #ccc;
+  height: 50px;
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+table.orders td {
+  padding-bottom: 15px;
+}
+tr {
+  transition: all 0.1s ease;
+}
+tr:hover { 
+  background: #f9f9f9;
+}
+table p {
+  margin: 0;
+}
+.hidden {
+  display: none;
+}
+.center {
+  text-align: center !important;
+}
+td.actions {
+  text-align: right;
+  width: 125px;
+  padding-right: 10px !important;
+}
+
+.customer {
+  p {
+    font-weight: bold;
+    padding-top: 17px;
+  }
+  a {
+    text-decoration: none;
+    color: #bbb;
+    font-size: 12px;
+    transition: all 0.1s ease;
+  }
+  a:hover {
+    background: none;
+    color: #999;
+  }
+}
+.button-small {
+  transition: all 0.1s ease;
+  vertical-align: top;
+  width: 37px;
+  height: 37px;
+  display: inline-block;
+  text-indent: 100%;
+  overflow: hidden;
+  border-radius: 4px;
+  background: url(../assets/sprite.png) no-repeat 8px -21px #ddd;
+  &:hover {
+    color: #666;
+    background-color: #ccc;
+  }
+}
+.edit   { background-position: 8px -53px; }
+.delete { background-position: 8px -89px; }
+
+.inactive td {
+  color: #ccc;
+}
+
+/* Forms */
+
+label {
+  vertical-align: top;
+  width: 120px;
+  display: inline-block;
+  font-size: 14px;
+  padding-top: 7px;
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+input[type="text"],
+textarea {
+  padding: 5px 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 200px;
+  max-width: 200px;
+  max-height: 200px;
+  font-size: 14px;
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+  -webkit-transition: all 0.1s ease;
+     -moz-transition: all 0.1s ease;
+    -ms-transition: all 0.1s ease;
+      transition: all 0.1s ease;
+  &:focus {
+    outline: none;
+    border-color: #aaa;
+  }
+}
+select {
+  width: 212px;
+}
+input[type="submit"] {
+  margin-left: 124px;
+}

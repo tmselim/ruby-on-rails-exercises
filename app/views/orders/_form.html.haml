@@ -1,0 +1,29 @@
+- if @order.errors.any?
+  #error_explanation
+    %h2= "#{pluralize(@order.errors.count, "error")} prohibited this order from being saved:"
+    %ul
+      - @order.errors.full_messages.each do |msg|
+        %li= msg
+
+.field
+  = f.label :customer_name
+  = f.text_field :customer_name
+.field
+  = f.label :customer_email
+  = f.text_field :customer_email
+.field
+  = f.label :brand
+  = collection_select :order, :brand_id, Brand.all.order(:name), :id, :name, {}, { size: 10, data: { select: :brand } }
+.field
+  = f.label :frame
+  %select{id: :order_frame_id, size: 10, name: 'order[frame_id]', data: { select: :frame } }
+    %option Please select a brand
+.field
+  = f.label :description
+  = f.text_area :description
+.field
+  = f.label :price
+  = f.text_field :price
+.field
+  = f.label :paid_for_on
+  = f.text_field :paid_for_on

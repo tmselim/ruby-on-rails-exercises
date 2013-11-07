@@ -1,0 +1,8 @@
+%h1 New order
+
+= form_for @order do |f|
+  = render partial: 'form', locals: { f: f }
+  .actions
+    = f.submit 'Create'
+
+= link_to 'Back', orders_path
